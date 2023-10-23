@@ -183,7 +183,7 @@ paths:
     get:
       summary: Get authenticated user
       tags:
-      - Authentication
+      - Profile
       security:
       - bearer_auth: {}
       responses:
@@ -204,6 +204,129 @@ paths:
                     type: string
                   last_name:
                     type: string
+                  avatar_url:
+                    type: string
+                    format: uri
+                    nullable: true
+  "/api/v1/auth/profile/general":
+    put:
+      summary: Update user info
+      tags:
+      - Profile
+      security:
+      - bearer_auth: {}
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  email:
+                    type: string
+                    format: email
+                  first_name:
+                    type: string
+                  last_name:
+                    type: string
+                  avatar_url:
+                    type: string
+                    format: uri
+                    nullable: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    first_name:
+                      type: string
+                    last_name:
+                      type: string
+                    avatar:
+                      type: string
+                      example: blob_signed_id
+                    current_password:
+                      type: string
+                  required:
+                  - current_password
+  "/api/v1/auth/profile/email":
+    put:
+      summary: Update user email
+      tags:
+      - Profile
+      security:
+      - bearer_auth: {}
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                    current_password:
+                      type: string
+                  required:
+                  - email
+                  - current_password
+  "/api/v1/auth/profile/password":
+    put:
+      summary: Update user password
+      tags:
+      - Profile
+      security:
+      - bearer_auth: {}
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    password:
+                      type: string
+                    current_password:
+                      type: string
+                  required:
+                  - password
+                  - current_password
   "/api/v1/auth/sign_up":
     post:
       summary: Register user
@@ -228,6 +351,9 @@ paths:
                     type: string
                   last_name:
                     type: string
+                  avatar_url:
+                    type: string
+                    nullable: true
         '422':
           description: Failure
           content:
@@ -304,6 +430,9 @@ paths:
                     type: string
                   last_name:
                     type: string
+                  avatar_url:
+                    type: string
+                    nullable: true
         '401':
           description: Failure
           content:
@@ -371,7 +500,7 @@ paths:
                     example: image/png
                   created_at:
                     type: integer
-                    example: 1696301763
+                    example: 1698039633
                   filename:
                     type: string
                     example: image.png

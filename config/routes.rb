@@ -17,12 +17,13 @@ Rails.application.routes.draw do
   end
   mount Sidekiq::Web => '/sidekiq'
 
-  root 'health#show'
-
   # active_storage override routes for authention required
   get  '/rails/active_storage/disk/:encoded_key/*filename', to: 'disk#show'
   put  '/rails/active_storage/disk/:encoded_token', to: 'disk#update'
   post '/rails/active_storage/direct_uploads', to: 'direct_uploads#create'
+
+  root 'info#index'
+  get 'up', to: 'rails/health#show', as: :rails_health_check
 
   namespace :api do
     namespace :v1 do
