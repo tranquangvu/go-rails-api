@@ -9,4 +9,4 @@
   - low
 
 production:
-  :concurrency: <%= ENV['SIDEKIQ_CONCURRENCY'] || 25 %>
+  :concurrency: <%= ENV.fetch('SIDEKIQ_CONCURRENCY', 25) %>

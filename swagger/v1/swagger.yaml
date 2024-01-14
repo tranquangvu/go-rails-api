@@ -500,7 +500,7 @@ paths:
                     example: image/png
                   created_at:
                     type: integer
-                    example: 1698039633
+                    example: 1705216024
                   filename:
                     type: string
                     example: image.png
@@ -518,6 +518,13 @@ paths:
                   type: file
               required:
               - file
+servers:
+- url: "{protocol}://{defaultHost}"
+  variables:
+    protocol:
+      default: http
+    defaultHost:
+      default: localhost:3000
 components:
   securitySchemes:
     bearer_auth:

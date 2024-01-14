@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'General', type: :request do
+RSpec.describe 'Info', type: :request do
   describe 'GET /' do
     it 'returns ok response' do
       get root_path

@@ -7,10 +7,10 @@ class ApplicationController < ActionController::API
   private
 
   def filter_params
-    params[:filter]&.permit! || {}
+    params[:filter].permit! || {}
   end
 
   def order_params
-    params[:order]&.permit! || {}
+    params[:order].permit! || {}
   end
 end

@@ -1,6 +1,6 @@
 module Uploads
   class CreateAndUploadBlobService < ApplicationService
-    MAX_SIZE_IN_MB = 50
+    MAX_SIZE_IN_MB = 10
     private_constant :MAX_SIZE_IN_MB
 
     attr_reader :file
