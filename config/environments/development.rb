@@ -40,7 +40,7 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # Action mailer default url
-  config.action_mailer.default_url_options = { host: ENV['URL_DOMAIN'], protocol: ENV['URL_PROTOCOL'] }
+  config.action_mailer.default_url_options = { host: ENV.fetch('APP_HOST'), protocol: ENV.fetch('APP_PROTOCOL') }
 
   # Use letter_opener for mailer delivery method
   config.action_mailer.delivery_method = :letter_opener

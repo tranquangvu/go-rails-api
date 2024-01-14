@@ -12,11 +12,11 @@ A template for faster starting new REST API application with Ruby On Rails.
 - Add database configuration: add `config/database.yml` file with sample contents provided in `config/database.sample.yml`
 - Add environment variables: add `.env` file with sample contents provided in `.env.sample`
 - Generate new rails master key `rm -f config/credentials.yml.enc && rm -rf config/master.key && EDITOR=vim rails credentials:edit`
-- Database setup: `bin/rake db:setup`
+- Database setup: `bin/rails db:setup`
 - Start rails server: `bin/rails s`
 - Start worker: `bin/bundle exec sidekiq`
 
-2. Testing:
+2. Spec:
 
 - Run `rspec` | `bin/bundle exec rspec`
 - Check coverage at `coverage/index.html`
@@ -24,7 +24,7 @@ A template for faster starting new REST API application with Ruby On Rails.
 3. API document:
 
 - Run `bin/rake rswag`
-- Visit api docs at http://localhost:3000/api-docs
+- Visit api docs at http://localhost:3000/docs
 
 4. Security vulnerability scanner:
 

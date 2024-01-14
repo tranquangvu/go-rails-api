@@ -5,7 +5,7 @@ module Warden
   module JWTAuth
     module OverridedStrategy
       def authenticate!
-        env['devise.skip_trackable'.freeze] = true if self.valid?
+        env['devise.skip_trackable'.freeze] = true if valid?
         super
       end
     end

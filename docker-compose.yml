@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  api:
+    image: gorails:${IMAGE_TAG:-latest}
+    platform: linux/amd64
+    restart: always
+    environment: &app_envs
+      - RACK_ENV
+      - RAILS_ENV
+      - RAILS_MASTER_KEY
+      - RAILS_MAX_THREADS
+      - WEB_CONCURRENCY
+      - DATABASE_URL
+      - REDIS_URL
+      - SIDEKIQ_CONCURRENCY
+      - SIDEKIQ_WEB_USERNAME
+      - SIDEKIQ_WEB_PASSWORD
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_REGION
+      - AWS_BUCKET
+      - APP_HOST
+      - APP_PROTOCOL
+      - APP_DOCUMENT
+      - JWT_SECRET_KEY
+      - SENDGRID_API_KEY
+      - SENTRY_DNS
+
+  sidekiq:
+    image: gorails:${IMAGE_TAG:-latest}
+    platform: linux/amd64
+    command: ./bin/bundle exec sidekiq
+    restart: on-failure
+    environment:
+      *app_envs
+
+  nginx:
+    image: nginx:latest
+    platform: linux/amd64
+    restart: always
+    ports:
+      - 8080:80
+    depends_on:
+      - api
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro

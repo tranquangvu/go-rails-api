@@ -24,7 +24,7 @@ module GoRailsApi
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
-    config.autoload_lib(ignore: %w(assets tasks))
+    config.autoload_lib(ignore: %w[assets tasks])
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -43,12 +43,12 @@ module GoRailsApi
     overrides = "#{Rails.root}/app/overrides"
     Rails.autoloaders.main.ignore(overrides)
     config.to_prepare do
-      Dir.glob("#{overrides}/**/*_override.rb").sort.each do |override|
+      Dir.glob("#{overrides}/**/*_override.rb").each do |override|
         load override
       end
     end
 
     # Set default url options
-    routes.default_url_options = { host: ENV['URL_DOMAIN'], protocol: ENV['URL_PROTOCOL'] }
+    routes.default_url_options = { host: ENV.fetch('APP_HOST'), protocol: ENV.fetch('APP_PROTOCOL') }
   end
 end

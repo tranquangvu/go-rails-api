@@ -321,9 +321,9 @@ Devise.setup do |config|
 
   # Set devise-jwt configuration
   config.jwt do |jwt|
-    jwt.secret = ENV['DEVISE_JWT_SECRET_KEY'].presence || raise(RuntimeError, "ENV['DEVISE_JWT_SECRET_KEY'] is required for JWT secret.")
+    jwt.secret = ENV.fetch('JWT_SECRET_KEY')
     jwt.dispatch_requests = [
-      ['POST', %r{^/api/v1/auth/sign_in$}],
+      ['POST', %r{^/api/v1/auth/sign_in$}]
     ]
     jwt.revocation_requests = [
       ['DELETE', %r{^/api/v1/auth/sign_out$}]

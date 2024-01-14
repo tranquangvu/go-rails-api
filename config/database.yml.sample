@@ -3,23 +3,19 @@ default: &default
   encoding: unicode
   pool: |
     <% if Sidekiq.server? %>
-      <%= ENV.fetch('SIDEKIQ_CONCURRENCY') { 25 } %>
+      <%= ENV.fetch('SIDEKIQ_CONCURRENCY', 25) %>
     <% else %>
-      <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
+      <%= ENV.fetch('RAILS_MAX_THREADS', 5) %>
     <% end %>
 
 development:
   <<: *default
-  database: gorailsapi_development
+  database: gorails_development
 
 test:
   <<: *default
-  database: gorailsapi_test
+  database: gorails_test
 
 production:
   <<: *default
-  database: <%= ENV['DB_NAME'] %>
-  username: <%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
-  host: <%= ENV['DB_HOST'] %>
-  port: <%= ENV['DB_PORT'] %>
+  url: <%= ENV.fetch('DATABASE_URL', nil) %>
