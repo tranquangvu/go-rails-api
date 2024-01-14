@@ -21,9 +21,10 @@ gem 'devise'
 gem 'devise-jwt'
 gem 'sidekiq'
 gem 'sidekiq-cron'
+gem 'rswag'
+gem 'lograge'
 gem 'sentry-ruby'
 gem 'sentry-rails'
-gem 'rswag'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri windows]
