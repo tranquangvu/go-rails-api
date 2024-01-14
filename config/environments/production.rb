@@ -57,6 +57,10 @@ Rails.application.configure do
   # want to log everything, set the level to "debug".
   config.log_level = ENV.fetch('RAILS_LOG_LEVEL', 'info')
 
+  # Setup inline log with lograge
+  config.lograge.enabled = true
+  config.lograge.base_controller_class = 'ActionController::API'
+
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
