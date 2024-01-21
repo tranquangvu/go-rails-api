@@ -23,8 +23,11 @@ services:
       - APP_HOST
       - APP_PROTOCOL
       - APP_DOCUMENT
+      - SMTP_HOST
+      - SMTP_PORT
+      - SMTP_USERNAME
+      - SMTP_PASSWORD
       - JWT_SECRET_KEY
-      - SENDGRID_API_KEY
       - SENTRY_DNS
 
   sidekiq:

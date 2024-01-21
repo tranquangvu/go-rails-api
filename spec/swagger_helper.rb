@@ -22,13 +22,13 @@ RSpec.configure do |config|
       paths: {},
       servers: [
         {
-          url: '{protocol}://{defaultHost}',
+          url: '{protocol}://{host}',
           variables: {
-            protocol: {
-              default: ENV.fetch('APP_PROTOCOL')
+            host: {
+              default: ENV.fetch('APP_HOST', 'localhost:3000')
             },
-            defaultHost: {
-              default: ENV.fetch('APP_HOST')
+            protocol: {
+              default: ENV.fetch('APP_PROTOCOL', 'http')
             }
           }
         }

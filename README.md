@@ -67,4 +67,4 @@ bundle exec rubocop
 
 ## License
 
-Licensed under the MIT license, see the separate LICENSE.md file.
+Licensed under the MIT license, see the separate [LICENSE.md](./LICENSE.md) file.

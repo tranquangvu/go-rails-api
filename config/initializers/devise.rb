@@ -30,7 +30,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = ENV.fetch('MAILER_FROM_EMAIL', 'noreply@example.com')
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -321,7 +321,7 @@ Devise.setup do |config|
 
   # Set devise-jwt configuration
   config.jwt do |jwt|
-    jwt.secret = ENV.fetch('JWT_SECRET_KEY')
+    jwt.secret = ENV.fetch('JWT_SECRET_KEY', Rails.application.secret_key_base)
     jwt.dispatch_requests = [
       ['POST', %r{^/api/v1/auth/sign_in$}]
     ]

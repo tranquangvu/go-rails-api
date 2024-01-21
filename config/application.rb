@@ -49,6 +49,9 @@ module GoRailsApi
     end
 
     # Set default url options
-    routes.default_url_options = { host: ENV.fetch('APP_HOST'), protocol: ENV.fetch('APP_PROTOCOL') }
+    routes.default_url_options = {
+      host: ENV.fetch('APP_HOST', 'localhost:3000'),
+      protocol: ENV.fetch('APP_PROTOCOL', 'http')
+    }
   end
 end

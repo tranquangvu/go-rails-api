@@ -92,14 +92,14 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
-  # Use sendgrid smtp for mailer delivery method
+  # Use SMTP as mailer delivery method
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    user_name: 'apikey',
-    password: ENV.fetch('SENDGRID_API_KEY'),
+    address: ENV.fetch('SMTP_HOST'),
+    port: ENV.fetch('SMTP_PORT'),
+    user_name: ENV.fetch('SMTP_USERNAME'),
+    password: ENV.fetch('SMTP_PASSWORD'),
     domain: ENV.fetch('APP_HOST'),
-    address: 'smtp.sendgrid.net',
-    port: 587,
     authentication: :login,
     enable_starttls_auto: true
   }
