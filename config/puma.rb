@@ -15,7 +15,7 @@ threads min_threads_count, max_threads_count
 rails_env = ENV.fetch('RAILS_ENV', 'development')
 if rails_env == 'production'
   require 'concurrent-ruby'
-  worker_count = Integer(ENV.fetch('WEB_CONCURRENCY') { Concurrent.physical_processor_count })
+  worker_count = Integer(ENV.fetch('WEB_CONCURRENCY', Concurrent.physical_processor_count))
   workers worker_count if worker_count > 1
 end
 

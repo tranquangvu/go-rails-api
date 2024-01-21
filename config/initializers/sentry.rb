@@ -1,4 +1,4 @@
-if (dns = ENV.fetch('SENTRY_DNS', nil)).present?
+if (dns = ENV['SENTRY_DNS']).present?
   Sentry.init do |config|
     config.dsn = dns
     config.breadcrumbs_logger = [:active_support_logger, :http_logger]

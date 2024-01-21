@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  if ENV.fetch('APP_DOCUMENT') == 'true'
+  if ENV['APP_DOCUMENT'].present?
     mount Rswag::Ui::Engine => '/docs'
     mount Rswag::Api::Engine => '/docs'
   end
