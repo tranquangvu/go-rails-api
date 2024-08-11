@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  if ENV['APP_DOCUMENT'].present?
-    mount Rswag::Ui::Engine => '/docs'
-    mount Rswag::Api::Engine => '/docs'
-  end
+  # if ENV['APP_DOCUMENT'].present?
+  #   mount Rswag::Ui::Engine => '/docs'
+  #   mount Rswag::Api::Engine => '/docs'
+  # end
   mount Sidekiq::Web => '/sidekiq'
 
   # active_storage override routes for authention required

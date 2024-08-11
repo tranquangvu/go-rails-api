@@ -2,6 +2,7 @@
 
 # Ignore git directory.
 /.git/
+/.gitignore
 
 # Ignore bundler config.
 /.bundle
@@ -41,12 +42,16 @@ dump.rdb
 !/app/assets/builds/.keep
 /public/assets
 
-# Ignore test coverage files.
-/coverage
+# Ignore CI service files.
+/.github
 
-# Ignore docker files.
+# Ignore development files
+/.devcontainer
+
+# Ignore Docker-related files
+/.dockerignore
 /Dockerfile*
 /docker-compose.yml*
 
-# Ignore elasticbeanstalk files.
-/.elasticbeanstalk
+# Ignore test coverage files.
+/coverage
