@@ -10,7 +10,6 @@ AllCops:
     - nginx/**/*
     - public/**/*
     - storage/**/*
-    - swagger/**/*
     - tmp/**/*
     - vendor/**/*
     - .git/**/*
