@@ -1,4 +1,0 @@
-cleanup_jwt_allow_list_job:
-  cron: '0 0 * * *'
-  class: 'CleanupJwtAllowListJob'
-  queue: default

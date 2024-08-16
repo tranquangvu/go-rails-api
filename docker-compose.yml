@@ -27,7 +27,6 @@ services:
       - SMTP_PORT
       - SMTP_USERNAME
       - SMTP_PASSWORD
-      - JWT_SECRET_KEY
       - SENTRY_DNS
 
   sidekiq:

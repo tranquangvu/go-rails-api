@@ -13,24 +13,6 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :uploads, param: :signed_id,
                           only: %i[create show]
-      namespace :auth do
-        devise_scope :user do
-          post :sign_up, to: 'registrations#create'
-          post :sign_in, to: 'sessions#create'
-          delete :sign_out, to: 'sessions#destroy'
-          resource :confirmation, only: %i[create update]
-          resource :password, only: %i[create update]
-        end
-        devise_for :users, singular: :user, skip: :all
-
-        resource :profile, only: %i[show] do
-          member do
-            put :general
-            put :password
-            put :email
-          end
-        end
-      end
     end
   end
 end

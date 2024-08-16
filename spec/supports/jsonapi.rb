@@ -4,7 +4,7 @@ module JSONAPI
   end
 
   def auth_header(user)
-    Devise::JWT::TestHelpers.auth_headers({}, user).fetch('Authorization', nil)
+    # TODO: Return JWT auth header
   end
 end
 
