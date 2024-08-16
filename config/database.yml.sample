@@ -1,12 +1,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: |
-    <% if Sidekiq.server? %>
-      <%= ENV.fetch('SIDEKIQ_CONCURRENCY', 25) %>
-    <% else %>
-      <%= ENV.fetch('RAILS_MAX_THREADS', 5) %>
-    <% end %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default

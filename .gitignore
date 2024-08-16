@@ -45,8 +45,3 @@ dump.rdb
 
 # Ignore test coverage files.
 /coverage
-
-# Ignore elasticbeanstalk files.
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml

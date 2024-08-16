@@ -45,14 +45,6 @@ bundle exec rspec
 
 Check the coverage at `coverage/index.html`
 
-**API document**
-
-```bash
-bin/rake rswag
-```
-
-Check the generated document at `http://localhost:3000/docs`
-
 **Security vulnerability scanner**
 
 ```bash
