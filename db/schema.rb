@@ -45,10 +45,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_17_121202) do
 
   create_table "sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
+    t.string "secret", null: false
     t.string "ip_address"
     t.string "user_agent"
+    t.datetime "expired_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["secret"], name: "index_sessions_on_secret", unique: true
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
@@ -63,5 +66,5 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_17_121202) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "sessions", "users"
+  add_foreign_key "sessions", "users", on_delete: :cascade
 end

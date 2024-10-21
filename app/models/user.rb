@@ -24,11 +24,11 @@ class User < ApplicationRecord
   normalizes :email, with: ->(value) { value.strip.downcase }
 
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :password, allow_nil: true, length: { minimum: 12 }
+  validates :password, allow_nil: true, length: { minimum: 8 }
 
-  # before_validation if: :email_changed?, on: :update do
-  #   self.verified = false
-  # end
+  before_validation if: :email_changed?, on: :update do
+    self.verified = false
+  end
 
   # after_update if: :password_digest_previously_changed? do
   #   sessions.where.not(id: Current.session).delete_all

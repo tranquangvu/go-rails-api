@@ -1,4 +1,4 @@
 class Current < ActiveSupport::CurrentAttributes
-  attribute :session
-  delegate :user, to: :session, allow_nil: true
+  attribute :user_id, :session_id
+  attribute :user_agent, :ip_address
 end

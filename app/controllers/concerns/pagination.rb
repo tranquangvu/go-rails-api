@@ -1,6 +1,10 @@
 module Pagination
   extend ActiveSupport::Concern
 
+  included do
+    include Pagy::Backend
+  end
+
   PAGY_KEYS_TRANSFORMER = {
     items: :page_size,
     page: :page_number,

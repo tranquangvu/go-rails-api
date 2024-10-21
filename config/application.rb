@@ -47,5 +47,9 @@ module GoRailsApi
         load override
       end
     end
+
+    # Enable sessions & cookies
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
   end
 end

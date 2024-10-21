@@ -12,7 +12,7 @@
 
 # These inflection rules are supported but not enabled by default:
 ActiveSupport::Inflector.inflections(:en) do |inflect|
-  ['API', 'JSONAPI'].each do |word|
+  ['API', 'JSONAPI', 'JWT'].each do |word|
     inflect.acronym(word)
   end
 end
