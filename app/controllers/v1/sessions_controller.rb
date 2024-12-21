@@ -3,15 +3,18 @@ module V1
     allow_unauthenticated_access only: %i[create]
 
     def create
-      result = Auths::Login.new.call(login_params, request_info:)
+      result = Auths::Login.new.call(create_params)
 
       if result.success?
         user, access_token, refresh_token = result.value!.values_at(:user, :access_token, :refresh_token)
         set_auth_cookies(access_token:, refresh_token:)
-        render_resource(user, 201)
+        render_resource(user)
       else
-        render_api_error(result.failure)
+        render_error(result.failure)
       end
+    end
+
+    def refresh
     end
 
     def destroy
@@ -21,15 +24,8 @@ module V1
 
     private
 
-    def login_params
+    def create_params
       params.permit(:email, :password)
-    end
-
-    def request_info
-      {
-        user_agent: request.user_agent,
-        ip_address: request.remote_ip
-      }
     end
   end
 end

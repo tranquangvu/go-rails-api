@@ -14,11 +14,11 @@ module Authentication
   private
 
   def require_authentication
-    payload, _options = JWTAuth::TokenDecoder.new.call(cookies.signed[:access_token])
-    raise APIError::NotAuthenticatedError unless payload
+    payload, = JWTAuth::TokenDecoder.new.call(cookies.signed[:access_token])
+    raise APIError::BadRequestError, 'Invalid token' if payload.blank? || payload['sid'].blank? || payload['sub'].blank?
 
-    Current.session_id = payload['sid']
-    Current.user_id = payload['sub']
+    Current.session = Session.find_by(id: payload['sid'], user_id: payload['sub'])
+    raise APIError::NotAuthenticatedError unless Current.session
   end
 
   def find_session_by_cookie
