@@ -2,3 +2,8 @@ purge_anattached_blobs_job:
   cron: '0 0 * * *'
   class: 'ActiveStorage::PurgeUnattachedBlobsJob'
   queue: default
+
+purge_expired_jwts_job:
+  cron: '0 0 * * *'
+  class: 'DeviseJwt::PurgeExpiredJwtsJob'
+  queue: default

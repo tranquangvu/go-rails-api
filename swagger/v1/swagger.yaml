@@ -208,7 +208,6 @@ paths:
                     type: string
                     format: uri
                     nullable: true
-  "/api/v1/auth/profile/general":
     put:
       summary: Update user info
       tags:
@@ -247,6 +246,9 @@ paths:
                 user:
                   type: object
                   properties:
+                    email:
+                      type: string
+                      format: email
                     first_name:
                       type: string
                     last_name:
@@ -254,78 +256,11 @@ paths:
                     avatar:
                       type: string
                       example: blob_signed_id
-                    current_password:
-                      type: string
-                  required:
-                  - current_password
-  "/api/v1/auth/profile/email":
-    put:
-      summary: Update user email
-      tags:
-      - Profile
-      security:
-      - bearer_auth: {}
-      parameters: []
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                user:
-                  type: object
-                  properties:
-                    email:
-                      type: string
-                      format: email
-                    current_password:
-                      type: string
-                  required:
-                  - email
-                  - current_password
-  "/api/v1/auth/profile/password":
-    put:
-      summary: Update user password
-      tags:
-      - Profile
-      security:
-      - bearer_auth: {}
-      parameters: []
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                user:
-                  type: object
-                  properties:
                     password:
                       type: string
                     current_password:
                       type: string
                   required:
-                  - password
                   - current_password
   "/api/v1/auth/sign_up":
     post:
@@ -511,6 +446,13 @@ paths:
                   type: file
               required:
               - file
+servers:
+- url: "{protocol}://{host}"
+  variables:
+    host:
+      default: localhost:3000
+    protocol:
+      default: http
 components:
   securitySchemes:
     bearer_auth:

@@ -36,9 +36,11 @@ describe 'Profiles' do
           user: {
             type: :object,
             properties: {
+              email: { type: :string, format: :email },
               first_name: { type: :string },
               last_name: { type: :string },
               avatar: { type: :string, example: 'blob_signed_id' },
+              password: { type: :string },
               current_password: { type: :string }
             },
             required: %i[current_password]

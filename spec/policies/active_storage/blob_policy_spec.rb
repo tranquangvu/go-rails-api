@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe ActiveStorage::BlobPolicy, type: :policy do
   subject { described_class.new(user, blob) }
 
