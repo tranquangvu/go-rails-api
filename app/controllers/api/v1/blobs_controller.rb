@@ -1,9 +1,9 @@
 module API
   module V1
-    class UploadsController < BaseController
+    class BlobsController < BaseController
       def create
         authorize(ActiveStorage::Blob)
-        blob = Uploads::CreateAndUploadBlobService.new.call(blob_params[:file])
+        blob = Blobs::Create.new.call(blob_params[:file])
         render_resource(blob, serializer: BlobSerializer, view: :detail, status: :created)
       end
 

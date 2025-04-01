@@ -39,6 +39,6 @@ class UserSerializer < ApplicationSerializer
   end
 
   field :avatar_url do |user|
-    file_url(user.avatar)
+    (signed_id = user.avatar.signed_id) && blob_url(signed_id)
   end
 end

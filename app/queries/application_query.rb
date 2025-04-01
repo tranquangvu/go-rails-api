@@ -12,21 +12,14 @@ module Scopeable
 end
 
 class ApplicationQuery
-  class_attribute :single_query_scope
   attr_reader :scope
 
-  class << self
-    def call(scope = nil, ...)
-      new(scope).call(...)
-    end
-
-    def single_query_on(sqscope)
-      self.single_query_scope = sqscope.is_a?(String) ? sqscope.constantize : sqscope
-    end
+  def self.call(scope = nil, ...)
+    new(scope).call(...)
   end
 
   def initialize(scope = nil)
-    @scope = scope || self.class.single_query_scope
+    @scope = scope
   end
 
   def call

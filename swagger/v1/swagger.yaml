@@ -408,9 +408,9 @@ paths:
       responses:
         '204':
           description: Success
-  "/api/v1/uploads":
+  "/api/v1/blobs":
     post:
-      summary: Upload file
+      summary: Create blob
       tags:
       - Blobs
       security:

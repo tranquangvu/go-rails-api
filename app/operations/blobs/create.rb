@@ -1,5 +1,5 @@
-module Uploads
-  class CreateAndUploadBlobService < ApplicationService
+module Blobs
+  class Create < ApplicationOperation
     def call(file)
       validate_file!(file)
       create_and_upload!(file)

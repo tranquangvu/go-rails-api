@@ -211,9 +211,12 @@ Rails/UnknownEnv:
     - test
     - production
 
+Rails/BulkChangeTable:
+  Enabled: false
+
 # rubocop-rspec
 
-RSpec/DescribedClass:
+RSpec/AnyInstance:
   Enabled: false
 
 RSpec/EmptyExampleGroup:
@@ -221,9 +224,6 @@ RSpec/EmptyExampleGroup:
     - spec/requests/**/*
 
 RSpec/ExampleLength:
-  Enabled: false
-
-RSpec/ExpectInHook:
   Enabled: false
 
 RSpec/IndexedLet:
@@ -235,6 +235,9 @@ RSpec/InstanceVariable:
 RSpec/MessageChain:
   Enabled: false
 
+RSpec/MessageSpies:
+  Enabled: false
+
 RSpec/MultipleExpectations:
   Enabled: false
 
@@ -242,6 +245,9 @@ RSpec/MultipleMemoizedHelpers:
   Enabled: false
 
 RSpec/NamedSubject:
+  Enabled: false
+
+RSpec/NestedGroups:
   Enabled: false
 
 RSpec/StubbedMock:

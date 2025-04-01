@@ -1,10 +1,10 @@
 require 'swagger_helper'
 
-describe 'Uploads' do
+describe 'Blobs' do
   let!(:user) { create(:user) }
 
-  path '/api/v1/uploads' do
-    post 'Upload file' do
+  path '/api/v1/blobs' do
+    post 'Create blob' do
       tags 'Blobs'
       consumes 'multipart/form-data'
       produces 'application/json'

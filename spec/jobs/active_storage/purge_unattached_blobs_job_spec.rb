@@ -18,7 +18,8 @@ describe ActiveStorage::PurgeUnattachedBlobsJob do
     end
 
     it 'deletes file has been unattached over 1 day' do
-      ActiveStorage::PurgeUnattachedBlobsJob.perform_now
+      described_class.perform_now
+
       expect(ActiveStorage::Blob.where(filename: 'hello_0.txt').count).to eq(0)
       expect(ActiveStorage::Blob.where(filename: 'hello_1.txt').count).to eq(1)
     end

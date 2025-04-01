@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'up', to: 'rails/health#show', as: :rails_health_check
 
   # active storage routes
-  get 'files/:signed_id' => 'active_storage/blobs/redirect#show', as: :file
+  get 'blobs/:signed_id' => 'active_storage/blobs/redirect#show', as: :blob
   # TODO: Fix this to be able to get uploaded file
   # if Rails.application.config.active_storage.service.in?(%i[local test])
   #   get 'disk/:encoded_key/*filename' => 'active_storage/disk#show', as: :rails_disk_service
@@ -29,7 +29,7 @@ Rails.application.routes.draw do
         devise_for :users, singular: :user, skip: :all
         resource :profile, only: %i[show update]
       end
-      resources :uploads, param: :signed_id, only: %i[create show]
+      resources :blobs, param: :signed_id, only: %i[create show]
     end
   end
 end

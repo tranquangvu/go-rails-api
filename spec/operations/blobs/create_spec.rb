@@ -1,4 +1,4 @@
-describe Uploads::CreateAndUploadBlobService, type: :service do
+describe Blobs::Create, type: :operation do
   subject { described_class.new }
 
   describe '#call' do

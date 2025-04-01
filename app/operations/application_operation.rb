@@ -1,22 +1,22 @@
 # Sample usage following dependency injection principles:
 #
-# class ApproveUserService < ApplicationService
-#   def initialize(notify_service = NotifyService.new)
-#     @notify_service = notify_service
+# class Users::Approve < ApplicationOperation
+#   def initialize(send_notification = Notifications::Send.new)
+#     @send_notification = send_notification
 #   end
 #
 #   def call(params)
 #     # ...
-#     notify_service.call(params[:user_id], 'approved')
+#     send_notification.call(params[:user_id], 'approved')
 #     # ...
 #   end
 #
 #   private
 #
-#   attr_reader :notify_service
+#   attr_reader :notify
 # end
 
-class ApplicationService
+class ApplicationOperation
   def self.call(...)
     new.call(...)
   end

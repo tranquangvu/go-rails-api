@@ -49,7 +49,7 @@ module GoRailsApi
     end
 
     # Using session middlewares
-    config.session_store :cookie_store, key: '_go_rails_api'
+    config.session_store :cookie_store, key: '_go_rails'
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
 
