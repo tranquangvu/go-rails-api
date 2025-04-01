@@ -1,4 +1,4 @@
-class InfoController < ApplicationController
+class HomeController < ApplicationController
   def index
     render json: { app: 'go-rails-api', version: '0.0.1' }
   end

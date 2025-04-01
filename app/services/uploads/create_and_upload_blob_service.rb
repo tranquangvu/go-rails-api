@@ -1,26 +1,24 @@
 module Uploads
   class CreateAndUploadBlobService < ApplicationService
-    MAX_SIZE_IN_MB = 10
-    private_constant :MAX_SIZE_IN_MB
-
-    attr_reader :file
-
-    def initialize(file)
-      @file = file
-    end
-
-    def call
-      validate_file!
-      create_and_upload!
+    def call(file)
+      validate_file!(file)
+      create_and_upload!(file)
     end
 
     private
 
-    def validate_file!
-      raise APIError::BadRequestError, "File size is too large, must be less than or equal to #{MAX_SIZE_IN_MB}MB" if file.size > MAX_SIZE_IN_MB.megabytes
+    def validate_file!(file)
+      errors = []
+      if file.size > Constants::UPLOADED_FILE_MAX_SIZE
+        errors << "File size exceeds #{Constants::UPLOADED_FILE_MAX_SIZE / 1.megabyte}MB limit"
+      end
+      if Constants::UPLOADED_FILE_CONTENT_TYPES.exclude?(file.content_type)
+        errors << "File type not allowed. Allowed types: #{Constants::UPLOADED_FILE_CONTENT_TYPES.join(', ')}"
+      end
+      raise APIError::BadRequestError.new(errors: errors) if errors.any?
     end
 
-    def create_and_upload!
+    def create_and_upload!(file)
       ActiveStorage::Blob.create_and_upload!(
         io: file.open,
         filename: file.original_filename,

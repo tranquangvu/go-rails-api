@@ -1,7 +1,7 @@
 class ApplicationSerializer < Blueprinter::Base
-  def self.url_for(object)
+  def self.file_url(object)
     return unless object.present?
 
-    Rails.application.routes.url_helpers.url_for(object)
+    Rails.application.routes.url_helpers.file_url(signed_id: object.signed_id)
   end
 end

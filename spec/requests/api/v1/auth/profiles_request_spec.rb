@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-RSpec.describe 'Profiles', type: :request do
+describe 'Profiles' do
   let!(:user) { create(:user, password: 'password123') }
 
   path '/api/v1/auth/profile' do
@@ -24,7 +24,7 @@ RSpec.describe 'Profiles', type: :request do
     end
   end
 
-  path '/api/v1/auth/profile/general' do
+  path '/api/v1/auth/profile' do
     put 'Update user info' do
       tags 'Profile'
       consumes 'application/json'
@@ -56,68 +56,6 @@ RSpec.describe 'Profiles', type: :request do
         }
         let(:Authorization) { auth_header(user) }
         let(:params) { { user: { first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, current_password: 'password123' } } }
-        run_test!
-      end
-    end
-  end
-
-  path '/api/v1/auth/profile/email' do
-    put 'Update user email' do
-      tags 'Profile'
-      consumes 'application/json'
-      produces 'application/json'
-      security [bearer_auth: {}]
-      parameter name: :params, in: :body, schema: {
-        type: :object,
-        properties: {
-          user: {
-            type: :object,
-            properties: {
-              email: { type: :string, format: :email },
-              current_password: { type: :string }
-            },
-            required: %i[email current_password]
-          }
-        }
-      }
-
-      response '200', 'Success' do
-        schema type: :object, properties: {
-          message: { type: :string }
-        }
-        let(:Authorization) { auth_header(user) }
-        let(:params) { { user: { email: 'new@email.com', current_password: 'password123' } } }
-        run_test!
-      end
-    end
-  end
-
-  path '/api/v1/auth/profile/password' do
-    put 'Update user password' do
-      tags 'Profile'
-      consumes 'application/json'
-      produces 'application/json'
-      security [bearer_auth: {}]
-      parameter name: :params, in: :body, schema: {
-        type: :object,
-        properties: {
-          user: {
-            type: :object,
-            properties: {
-              password: { type: :string },
-              current_password: { type: :string }
-            },
-            required: %i[password current_password]
-          }
-        }
-      }
-
-      response '200', 'Success' do
-        schema type: :object, properties: {
-          message: { type: :string }
-        }
-        let(:Authorization) { auth_header(user) }
-        let(:params) { { user: { password: 'password246', current_password: 'password123' } } }
         run_test!
       end
     end

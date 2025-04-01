@@ -37,5 +37,6 @@ class User < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :avatar, content_type: ['image/png', 'image/jpeg'], size: { less_than: 10.megabytes }
+  validates :avatar, content_type: Constants::UPLOADED_FILE_CONTENT_TYPES,
+                     size: { less_than_or_equal_to: Constants::UPLOADED_FILE_MAX_SIZE }
 end

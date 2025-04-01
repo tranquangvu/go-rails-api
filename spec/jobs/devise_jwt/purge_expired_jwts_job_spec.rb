@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe DeviseJwt::PurgeExpiredJwtsJob, type: :job do
+describe DeviseJwt::PurgeExpiredJwtsJob do
   include_examples 'enqueues_job_correctly', :low
 
   describe '#perform' do
@@ -10,8 +10,8 @@ RSpec.describe DeviseJwt::PurgeExpiredJwtsJob, type: :job do
 
     it 'deletes expired jwts' do
       DeviseJwt::PurgeExpiredJwtsJob.perform_now
-      expect(AllowlistedJwt.exists?(expired_jwt.id)).to eq(false)
-      expect(AllowlistedJwt.exists?(valid_jwt.id)).to eq(true)
+      expect(AllowlistedJwt.exists?(expired_jwt.id)).to be(false)
+      expect(AllowlistedJwt.exists?(valid_jwt.id)).to be(true)
     end
   end
 end

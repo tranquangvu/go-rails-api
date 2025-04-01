@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ActiveStorage::PurgeUnattachedBlobsJob, type: :job do
+describe ActiveStorage::PurgeUnattachedBlobsJob do
   include_examples 'enqueues_job_correctly', :low
 
   describe '#perform' do

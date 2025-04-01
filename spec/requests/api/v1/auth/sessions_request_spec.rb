@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-RSpec.describe 'Sessions', type: :request do
+describe 'Sessions' do
   let!(:user) { create(:user, password: 'password123') }
 
   path '/api/v1/auth/sign_in' do

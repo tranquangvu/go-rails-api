@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-RSpec.describe 'Confirmations', type: :request do
+describe 'Confirmations' do
   let!(:user) { create(:user, :need_confirmation) }
 
   path '/api/v1/auth/confirmation' do

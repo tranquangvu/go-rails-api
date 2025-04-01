@@ -3,7 +3,7 @@ module API
     class UploadsController < BaseController
       def create
         authorize(ActiveStorage::Blob)
-        blob = Uploads::CreateAndUploadBlobService.call(blob_params[:file])
+        blob = Uploads::CreateAndUploadBlobService.new.call(blob_params[:file])
         render_resource(blob, serializer: BlobSerializer, view: :detail, status: :created)
       end
 
