@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-RSpec.describe 'Passwords', type: :request do
+describe 'Passwords' do
   let!(:user) { create(:user) }
 
   path '/api/v1/auth/password' do

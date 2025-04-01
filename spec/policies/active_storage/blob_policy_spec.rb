@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ActiveStorage::BlobPolicy, type: :policy do
+describe ActiveStorage::BlobPolicy, type: :policy do
   subject { described_class.new(user, blob) }
 
   let(:user) { nil }

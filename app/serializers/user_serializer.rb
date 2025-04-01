@@ -39,6 +39,6 @@ class UserSerializer < ApplicationSerializer
   end
 
   field :avatar_url do |user|
-    url_for(user.avatar)
+    file_url(user.avatar)
   end
 end

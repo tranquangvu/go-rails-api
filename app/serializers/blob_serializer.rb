@@ -2,7 +2,7 @@ class BlobSerializer < ApplicationSerializer
   identifier :signed_id
 
   field :url do |object|
-    url_for(object)
+    file_url(object)
   end
 
   view :detail do

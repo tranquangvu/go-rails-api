@@ -29,7 +29,7 @@
 #
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+describe User do
   subject { build(:user) }
 
   describe 'validates' do

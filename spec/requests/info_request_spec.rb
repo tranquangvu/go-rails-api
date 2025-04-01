@@ -1,9 +1,9 @@
-require 'rails_helper'
+require 'swagger_helper'
 
-RSpec.describe 'Info', type: :request do
+describe 'Home' do
   describe 'GET /' do
     it 'returns ok response' do
-      get root_path
+      get '/'
       expect(response).to have_http_status(:ok)
     end
   end

@@ -1,3 +1,10 @@
+inherit_gem:
+  rubocop-rails-omakase: rubocop.yml
+
+plugins:
+  - rubocop-rspec
+  - rubocop-rspec_rails
+
 AllCops:
   NewCops: enable
   Exclude:
@@ -15,19 +22,83 @@ AllCops:
     - vendor/**/*
     - .git/**/*
   SuggestExtensions: false
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.4
 
 Bundler/OrderedGems:
   Enabled: false
 
 Layout/ClassStructure:
+  Enabled: true
+  Categories:
+    module_inclusion:
+      - include
+      - prepend
+      - extend
+    attribute_macros:
+      - attr
+      - attr_accessor
+      - attr_reader
+      - attr_writer
+      - attribute
+      - serialize
+      - encrypts
+      - enum
+    associations:
+      - belongs_to
+      - has_one
+      - has_many
+      - has_and_belongs_to_many
+      - has_one_attached
+      - has_many_attached
+    scopes:
+      - default_scope
+      - scope
+    validations:
+      - validate
+      - validates
+      - validates_each
+      - validates_with
+    delegations:
+      - delegate
+    callbacks:
+      - before_validation
+      - after_validation
+      - before_save
+      - around_save
+      - before_create
+      - around_create
+      - after_create
+      - before_update
+      - around_update
+      - after_update
+      - after_save
+      - before_destroy
+      - around_destroy
+      - after_destroy
+      - after_commit
+      - after_rollback
+      - after_initialize
+      - after_find
+      - after_touch
+    protected_attribute_macros:
+      - attr
+      - attr_accessor
+      - attr_reader
+      - attr_writer
+    private_attribute_macros:
+      - attr
+      - attr_accessor
+      - attr_reader
+      - attr_writer
   ExpectedOrder:
     - module_inclusion
     - constants
-    - association
-    - public_attribute_macros
-    - public_delegate
-    - macros
+    - attribute_macros
+    - associations
+    - scopes
+    - validations
+    - delegations
+    - callbacks
     - public_class_methods
     - initializer
     - public_methods
@@ -36,59 +107,21 @@ Layout/ClassStructure:
     - private_attribute_macros
     - private_delegate
     - private_methods
+
 Layout/EmptyLineAfterMultilineCondition:
   Enabled: true
 
 Layout/EmptyLinesAroundAttributeAccessor:
   Enabled: true
 
-Layout/FirstArrayElementIndentation:
-  EnforcedStyle: consistent
-
-Layout/FirstArrayElementLineBreak:
-  Enabled: true
-
-Layout/FirstHashElementIndentation:
-  EnforcedStyle: consistent
-
-Layout/FirstHashElementLineBreak:
-  Enabled: true
-
 Layout/LineLength:
-  Exclude:
-    - db/migrate/**/*
-    - spec/**/*
-  Max: 160
+  Max: 120
 
-Layout/MultilineArrayBraceLayout:
-  EnforcedStyle: new_line
-
-Layout/MultilineHashBraceLayout:
-  EnforcedStyle: new_line
-
-Layout/MultilineHashKeyLineBreaks:
-  Enabled: true
-
-Layout/MultilineMethodCallBraceLayout:
-  EnforcedStyle: new_line
-
-Layout/MultilineMethodDefinitionBraceLayout:
-  EnforcedStyle: new_line
-
-Layout/MultilineOperationIndentation:
+Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
-Lint/AmbiguousBlockAssociation:
-  Exclude:
-    - spec/**/*
-
-Lint/AssignmentInCondition:
-  AllowSafeAssignment: false
-
-Lint/MissingSuper:
-  Enabled: true
-  Exclude:
-    - app/services/**/*
+Layout/SpaceInsideArrayLiteralBrackets:
+  EnforcedStyle: no_space
 
 Metrics/AbcSize:
   Max: 45
@@ -103,7 +136,7 @@ Metrics/BlockLength:
 Metrics/BlockNesting:
   Exclude:
     - spec/**/*'
-  Max: 4
+  Max: 3
 
 Metrics/ClassLength:
   CountAsOne: ['array', 'hash', 'method_call', 'heredoc']
@@ -117,7 +150,7 @@ Metrics/MethodLength:
   Exclude:
     - db/migrate/*.rb
     - spec/**/*'
-  Max: 30
+  Max: 45
 
 Metrics/ModuleLength:
   CountAsOne: ['array', 'hash', 'method_call', 'heredoc']
@@ -126,13 +159,10 @@ Metrics/ModuleLength:
   Max: 250
 
 Metrics/PerceivedComplexity:
-  Max: 10
+  Max: 20
 
 Style/AutoResourceCleanup:
   Enabled: true
-
-Style/ClassAndModuleChildren:
-  Enabled: false
 
 Style/CollectionMethods:
   Enabled: true
@@ -149,13 +179,7 @@ Style/FormatStringToken:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Style/HashEachMethods:
-  Enabled: false
-
-Style/HashSyntax:
-  EnforcedShorthandSyntax: either
-
-Style/HashTransformKeys:
+Style/GuardClause:
   Enabled: false
 
 Style/IfUnlessModifier:
@@ -164,23 +188,67 @@ Style/IfUnlessModifier:
 Style/ImplicitRuntimeError:
   Enabled: true
 
-Style/IpAddresses:
-  Enabled: true
+Style/InverseMethods:
+  Enabled: false
 
-Style/MultilineMethodSignature:
-  Enabled: true
+Style/Lambda:
+  Enabled: false
 
 Style/NumericLiterals:
-  MinDigits: 7
-
-Style/Semicolon:
-  AllowAsExpressionSeparator: true
-
-Style/SymbolArray:
   Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
 
 Style/SymbolProc:
   AllowMethodsWithArguments: true
 
-Style/WordArray:
+# rubocop-rails
+
+Rails/UnknownEnv:
+  Environments:
+    - development
+    - test
+    - production
+
+# rubocop-rspec
+
+RSpec/DescribedClass:
+  Enabled: false
+
+RSpec/EmptyExampleGroup:
+  Exclude:
+    - spec/requests/**/*
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/ExpectInHook:
+  Enabled: false
+
+RSpec/IndexedLet:
+  Enabled: false
+
+RSpec/InstanceVariable:
+  Enabled: false
+
+RSpec/MessageChain:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/NamedSubject:
+  Enabled: false
+
+RSpec/StubbedMock:
+  Enabled: false
+
+RSpec/VariableName:
+  Enabled: false
+
+RSpec/VerifiedDoubles:
   Enabled: false

@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-RSpec.describe 'Uploads', type: :request do
+describe 'Uploads' do
   let!(:user) { create(:user) }
 
   path '/api/v1/uploads' do

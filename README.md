@@ -1,28 +1,33 @@
 # Golden Owl Solutions Rails API Boilerplate
 
-A boilerplate for quickly setting up a Ruby On Rails RESTful API:
+A boilerplate for quickly setting up a Rails API:
 
-- Ruby 3.3.0
-- Rails 7.1.2
-- PostgreSQL Database
+- Ruby (3.4.1)
+- Rails (8.0.2)
+- PostgreSQL
+- Sidekiq, Redis
+- Devise, Devise JWT
+- Swagger
+- Sentry
+- RSpec
 
 ## Getting Started
 
-**Installation**
+Follow these steps to install and start the application:
 
-- Use ruby `3.3.0`
+- Install ruby `3.4.1`
 ```bash
-rbenv install 3.3.0
-rbenv local 3.3.0
+rbenv install 3.4.1
+rbenv local 3.4.1
 ruby -v
 ```
-- Install packages:
+- Install gems:
 ```bash
 gem install bundler
 bundle install
 ```
-- Add `config/database.yml` - refer `config/database.yml.sample`
-- Add `.env` - refer `.env.sample`
+- Add `config/database.yml` file (reference: `config/database.yml.sample`)
+- Add `.env` file (reference: `.env.sample`)
 - Generate new rails master key
 ```bash
 rm -f config/credentials.yml.enc && rm -f config/master.key && EDITOR=vim bin/rails credentials:edit
@@ -45,7 +50,7 @@ bundle exec rspec
 
 Check the coverage at `coverage/index.html`
 
-**API document**
+**API Doc**
 
 ```bash
 bin/rake rswag
@@ -53,13 +58,13 @@ bin/rake rswag
 
 Check the generated document at `http://localhost:3000/docs`
 
-**Security vulnerability scanner**
+**Security Vulnerability Scanner**
 
 ```bash
 bundle exec brakeman
 ```
 
-**Linter with rubocop**
+**Linter With Rubocop**
 
 ```bash
 bundle exec rubocop
