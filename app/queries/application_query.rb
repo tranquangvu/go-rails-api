@@ -1,3 +1,5 @@
+# Usage: read more at https://thoughtbot.com/blog/a-case-for-query-objects-in-rails
+
 module Scopeable
   extend ActiveSupport::Concern
 
