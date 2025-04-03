@@ -1,4 +1,4 @@
-# Sample usage following dependency injection principles:
+# Sample usage following dependency inversion principle:
 #
 # class Users::Approve < ApplicationOperation
 #   def initialize(send_notification = Notifications::Send.new)
@@ -13,7 +13,7 @@
 #
 #   private
 #
-#   attr_reader :notify
+#   attr_reader :send_notification
 # end
 
 class ApplicationOperation
