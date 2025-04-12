@@ -8,12 +8,10 @@ Rails.application.routes.draw do
 
   get 'up', to: 'rails/health#show', as: :rails_health_check
 
-  # active storage routes
   get 'blobs/:signed_id' => 'active_storage/blobs/redirect#show', as: :blob
-  # TODO: Fix this to be able to get uploaded file
-  # if Rails.application.config.active_storage.service.in?(%i[local test])
-  #   get 'disk/:encoded_key/*filename' => 'active_storage/disk#show', as: :rails_disk_service
-  # end
+  if Rails.application.config.active_storage.service.in?(%i[local test])
+    get 'disk/:encoded_key/*filename' => 'active_storage/disk#show', as: :rails_disk_service
+  end
 
   root 'home#index'
   namespace :api do
