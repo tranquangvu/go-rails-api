@@ -4,7 +4,7 @@ module JSONAPI
   end
 
   def auth_header(user)
-    Devise::JWT::TestHelpers.auth_headers({}, user).fetch('Authorization', nil)
+    # TODO: Implement a method to generate the authorization header for the user
   end
 end
 
