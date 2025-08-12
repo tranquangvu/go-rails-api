@@ -6,7 +6,6 @@ A boilerplate for quickly setting up a Rails API:
 - Rails (8.0.2)
 - PostgreSQL
 - Sidekiq, Redis
-- Devise, Devise JWT
 - Swagger
 - Sentry
 - RSpec
