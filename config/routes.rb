@@ -17,6 +17,16 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       namespace :auth do
+        post :sign_up, to: 'registrations#create'
+        post :sign_in, to: 'sessions#create'
+        delete :sign_out, to: 'sessions#destroy'
+
+        resource  :password, only: [:edit, :update]
+        namespace :identity do
+          resource :email,              only: [:edit, :update]
+          resource :email_verification, only: [:show, :create]
+          resource :password_reset,     only: [:new, :edit, :create, :update]
+        end
         resource :profile, only: %i[show update]
       end
       resources :blobs, param: :signed_id, only: %i[create show]

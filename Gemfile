@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 ruby '3.4.1'
 
 gem 'oj'
+gem 'jwt'
+gem 'bcrypt'
 gem 'rails', '~> 8.0.2'
 gem 'pg', '~> 1.1'
 gem 'puma', '>= 5.0'
@@ -24,6 +26,8 @@ gem 'rswag'
 gem 'lograge'
 gem 'sentry-ruby'
 gem 'sentry-rails'
+gem 'dry-operation'
+gem 'dry-monads'
 
 group :development, :test do
   gem 'pry'

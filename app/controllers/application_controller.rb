@@ -3,14 +3,14 @@ class ApplicationController < ActionController::API
   include Pagy::Backend
   include JSONAPIRender
   include ExceptionFilter
-
-  private
+  include RequestInfo
+  include Authentication
 
   def filter_params
-    params[:filter].permit! || {}
+    params.expect(:filter) || {}
   end
 
   def order_params
-    params[:order].permit! || {}
+    params.expect(:order) || {}
   end
 end

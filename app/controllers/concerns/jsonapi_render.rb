@@ -22,7 +22,10 @@ module JSONAPIRender
   end
 
   def render_resource_errors(errors, options = {})
-    api_error = APIError::RecordInvalidError.new(errors)
+    render_api_error(APIError::RecordInvalidError.new(errors), options)
+  end
+
+  def render_api_error(api_error, options = {})
     render json: api_error, status: options[:status] || api_error.status
   end
 
