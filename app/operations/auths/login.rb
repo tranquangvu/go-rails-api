@@ -14,7 +14,7 @@ module Auths
       access_token = jwt_encoder.call({ sub: user.id, sid: session.id }, exp: 15.minutes)
       refresh_token = session.token
 
-      Success({ user:, access_token:, refresh_token: })
+      Success({ user:, session:, access_token:, refresh_token: })
     end
 
     private
