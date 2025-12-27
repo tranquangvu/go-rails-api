@@ -1,7 +1,7 @@
 module API
   module V1
     module Auth
-      class PasswordsController < BaseController
+      class VerificationsController < BaseController
         def create
         end
 

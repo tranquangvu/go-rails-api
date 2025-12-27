@@ -20,14 +20,9 @@ Rails.application.routes.draw do
         post :sign_up, to: 'registrations#create'
         post :sign_in, to: 'sessions#create'
         delete :sign_out, to: 'sessions#destroy'
-
-        resource  :password, only: [:edit, :update]
-        namespace :identity do
-          resource :email,              only: [:edit, :update]
-          resource :email_verification, only: [:show, :create]
-          resource :password_reset,     only: [:new, :edit, :create, :update]
-        end
-        resource :profile, only: %i[show update]
+        resource :confirmation, only: %i[create update]
+        resource :password, only: %i[create update]
+        resource :account, only: %i[show update]
       end
       resources :blobs, param: :signed_id, only: %i[create show]
     end
