@@ -6,6 +6,7 @@ module Auths
       user = User.new(
         email: params[:email],
         password: params[:password],
+        full_name: params[:full_name]
       )
       if user.save
         UserMailer.with(user: user).verify_email.deliver_later

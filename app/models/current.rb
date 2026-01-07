@@ -1,7 +1,7 @@
 class Current < ActiveSupport::CurrentAttributes
-  attribute :user, :user_id,
-            :session, :session_id,
-            :user_agent, :ip_address
+  attribute :user_agent, :ip_address,
+            :session_id, :user_id, :user_roles,
+            :session, :user
 
   def user
     @attributes[:user] ||= User.find_by(id: user_id)

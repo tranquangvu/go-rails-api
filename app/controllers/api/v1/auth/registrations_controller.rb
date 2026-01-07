@@ -5,7 +5,7 @@ module API
         skip_before_action :authenticate, only: :create
 
         def create
-          result = Auths::Register.call(email: params[:email], password: params[:password])
+          result = Users::Register.call(email: params[:email], password: params[:password])
           case result
           when Success
             render json: result.value!, status: :created

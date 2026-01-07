@@ -1,6 +1,6 @@
 # Sample usage:
 #
-# module Users
+# module Auth
 #   class Approve < ApplicationOperation
 #     def initialize(send_notification = Notifications::Send.new)
 #       @send_notification = send_notification

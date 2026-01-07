@@ -8,46 +8,20 @@ module Authentication
   private
 
   def authenticate
-    token = extract_bearer_token
-    raise APIError::NotAuthenticatedError.new unless token
+    payload = authenticate_with_http_token do |token, _|
+      JWT::Decoder.new.call(token:)
+    rescue JWT::DecodeError
+      nil
+    end
+    raise APIError::NotAuthenticatedError unless payload
 
-    decoded = decode_token(token)
-    raise APIError::NotAuthenticatedError.new unless decoded
-
-    payload = decoded.first
-    user = find_user(payload['sub'])
-    raise APIError::NotAuthenticatedError.new unless user
-
-    session = find_session(payload['sid'])
-    raise APIError::NotAuthenticatedError.new unless session
-    raise APIError::NotAuthenticatedError.new unless session.user_id == user.id
-    raise APIError::NotAuthenticatedError.new if session.expired_at && session.expired_at < Time.current
-
-    Current.user_id = user.id
-    Current.session_id = session.id
+    Current.user_id = payload[:sub]
+    Current.session_id = payload[:sid]
+    Current.user_roles = ['user']
   end
 
-  def extract_bearer_token
-    authorization_header = request.headers['Authorization']
-    return nil unless authorization_header
-
-    match = authorization_header.match(/^Bearer (.+)$/)
-    match&.captures&.first
-  end
-
-  def decode_token(token)
-    jwt_decoder.call(token)
-  end
-
-  def find_user(user_id)
-    User.find_by(id: user_id)
-  end
-
-  def find_session(session_id)
-    Session.find_by(id: session_id)
-  end
-
-  def jwt_decoder
-    @jwt_decoder ||= JWT::Decoder.new
+  def set_refresh_token(value:, expires:)
+    cookies[:refresh_token] = { value:, expires:, secure: true,
+                                httponly: true, same_site: :lax, path: '/api/v1/auth/refresh' }
   end
 end

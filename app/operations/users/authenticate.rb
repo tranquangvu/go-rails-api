@@ -1,5 +1,5 @@
-module Auths
-  class Login
+module Users
+  class Authenticate
     include Dry::Monads[:result]
 
     def initialize(jwt_encoder = JWT::Encoder.new)
@@ -11,7 +11,7 @@ module Auths
       return Failure(APIError::NotAuthenticatedError.new('Invalid email or password')) unless user
 
       session = create_session(user)
-      access_token = jwt_encoder.call({ sub: user.id, sid: session.id }, exp: 15.minutes)
+      access_token = jwt_encoder.call({ sub: user.id, sid: session.id }, expired_at: 15.minutes.from_now)
       refresh_token = session.token
 
       Success({ user:, session:, access_token:, refresh_token: })
