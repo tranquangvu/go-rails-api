@@ -6,25 +6,34 @@ module Auths
       @jwt_encoder = jwt_encoder
     end
 
-    def call(refresh_token:)
-      return Failure(APIError::NotAuthenticatedError.new('Missing refresh token')) if refresh_token.blank?
+    def call(token:)
+      session, user = find_session(token)
+      return Failure(APIError::NotAuthenticatedError.new('Invalid refresh token')) unless session && user
 
-      token_hash = Digest::SHA256.hexdigest(refresh_token)
-      session = Session.find_by(token_hash:)
-      return Failure(APIError::NotAuthenticatedError.new('Invalid refresh token')) unless session
+      session = update_session(session)
+      access_token = jwt_encoder.call({ sub: user.id, sid: session.id }, expired_at: 15.minutes.from_now)
+      refresh_token = session.token
 
-      return Failure(APIError::NotAuthenticatedError.new('Session expired')) if session.expired_at < Time.current
-
-      user = session.user
-      return Failure(APIError::NotAuthenticatedError.new('User not found')) unless user
-
-      access_token = jwt_encoder.call({ sub: user.id, sid: session.id }, exp: 15.minutes.from_now)
-
-      Success({ user:, session:, access_token: })
+      Success({ user:, session:, access_token:, refresh_token: })
     end
 
     private
 
     attr_reader :jwt_encoder
+
+    def find_session(token)
+      return unless token.present?
+
+      hash = Digest::SHA256.hexdigest(token)
+      session = Session.active.find_by(token_hash: hash)
+      [session, session&.user]
+    end
+
+    def update_session(session)
+      session.update(
+        token: SecureRandom.hex(32),
+        expired_at: 7.days.from_now
+      )
+    end
   end
 end

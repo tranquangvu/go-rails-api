@@ -17,7 +17,7 @@ module Authentication
 
     Current.user_id = payload[:sub]
     Current.session_id = payload[:sid]
-    Current.user_roles = ['user']
+    Current.user_roles = %i[user]
   end
 
   def set_refresh_token(value:, expires:)

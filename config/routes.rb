@@ -20,7 +20,7 @@ Rails.application.routes.draw do
         post :sign_up, to: 'registrations#create'
         post :sign_in, to: 'sessions#create'
         delete :sign_out, to: 'sessions#destroy'
-        post :refresh, to: 'refresh#create'
+        post :refresh, to: 'sessions#refresh'
         resource :confirmation, only: %i[create update]
         resource :password, only: %i[create update]
         resource :account, only: %i[show update]
