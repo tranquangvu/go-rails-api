@@ -1,6 +1,6 @@
 module APIError
   class BadRequestError < StandardError
-    def initialize(message: nil, errors: [])
+    def initialize(message = nil, errors = [])
       super(
         message: message || 'The request can not be processed',
         errors: errors,

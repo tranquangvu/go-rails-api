@@ -5,37 +5,37 @@ module JSONAPIRender
     include Pagination
   end
 
-  def render_resource_collection(resources, options = {})
+  def render_resource_collection(resources, **options)
     raise ArgumentError, 'must have :each_serializer options for Array collection' if resources.instance_of?(Array) && options[:each_serializer].blank?
 
     serializer_options, render_options = extract_options(options, as_collection: true)
-    serializer_class = render_options[:each_serializer] || default_resource_collection_seralizer_class(resources)
+    serializer_class = render_options[:each_serializer] || default_resource_collection_serializer_class(resources)
 
     render json: serializer_class.render(resources, serializer_options), status: render_options[:status] || :ok
   end
 
-  def render_resource(resource, options = {})
+  def render_resource(resource, **options)
     serializer_options, render_options = extract_options(options)
-    serializer_class = render_options[:serializer] || default_resource_seralizer_class(resource)
+    serializer_class = render_options[:serializer] || default_resource_serializer_class(resource)
 
     render json: serializer_class.render(resource, serializer_options), status: render_options[:status] || :ok
   end
 
-  def render_resource_errors(errors, options = {})
+  def render_resource_errors(errors, **options)
     render_api_error(APIError::RecordInvalidError.new(errors), options)
   end
 
-  def render_api_error(api_error, options = {})
+  def render_api_error(api_error, **options)
     render json: api_error, status: options[:status] || api_error.status
   end
 
   private
 
-  def default_resource_collection_seralizer_class(resources)
+  def default_resource_collection_serializer_class(resources)
     "#{resources.klass}Serializer".constantize
   end
 
-  def default_resource_seralizer_class(resource)
+  def default_resource_serializer_class(resource)
     "#{resource.class}Serializer".constantize
   end
 

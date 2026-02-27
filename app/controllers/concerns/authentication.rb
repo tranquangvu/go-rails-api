@@ -20,6 +20,10 @@ module Authentication
     Current.user_roles = %i[user]
   end
 
+  def refresh_token
+    cookies[:refresh_token]
+  end
+
   def set_refresh_token(value:, expires:)
     cookies[:refresh_token] = { value:, expires:, secure: true,
                                 httponly: true, same_site: :lax, path: '/api/v1/auth/refresh' }

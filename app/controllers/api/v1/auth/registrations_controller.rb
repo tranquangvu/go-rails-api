@@ -5,13 +5,19 @@ module API
         skip_before_action :authenticate, only: :create
 
         def create
-          result = Users::Register.call(email: params[:email], password: params[:password])
+          result = Auth::RegisterUser.call(**register_params)
           case result
           when Success
             render json: result.value!, status: :created
           when Failure
             render_api_error(result.failure, status: :unprocessable_entity)
           end
+        end
+
+        private
+
+        def register_params
+          params.expect(:name, :email, :password)
         end
       end
     end

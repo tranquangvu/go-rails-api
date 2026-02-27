@@ -1,17 +1,17 @@
-module Auths
-  class RefreshToken
+module Auth
+  class RefreshSession
     include Dry::Monads[:result]
 
     def initialize(jwt_encoder = JWT::Encoder.new)
       @jwt_encoder = jwt_encoder
     end
 
-    def call(token:)
-      session, user = find_session(token)
+    def call(refresh_token)
+      session, user = find_session(refresh_token)
       return Failure(APIError::NotAuthenticatedError.new('Invalid refresh token')) unless session && user
 
       session = update_session(session)
-      access_token = jwt_encoder.call({ sub: user.id, sid: session.id }, expired_at: 15.minutes.from_now)
+      access_token = jwt_encoder.call(user.jwt_payload, expired_at: 15.minutes.from_now)
       refresh_token = session.token
 
       Success({ user:, session:, access_token:, refresh_token: })
@@ -30,10 +30,7 @@ module Auths
     end
 
     def update_session(session)
-      session.update(
-        token: SecureRandom.hex(32),
-        expired_at: 7.days.from_now
-      )
+      session.update(token: SecureRandom.hex(32), expired_at: 7.days.from_now)
     end
   end
 end

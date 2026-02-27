@@ -1,5 +1,5 @@
-module Users
-  class Authenticate
+module Auth
+  class LoginUser
     include Dry::Monads[:result]
 
     def initialize(jwt_encoder = JWT::Encoder.new)
@@ -11,10 +11,13 @@ module Users
       return Failure(APIError::NotAuthenticatedError.new('Invalid email or password')) unless user
 
       session = create_session(user)
-      access_token = jwt_encoder.call({ sub: user.id, sid: session.id }, expired_at: 15.minutes.from_now)
+      access_token = jwt_encoder.call(
+        user.jwt_payload,
+        expired_at: (ENV.fetch('JWT_ACCESS_TOKEN_EXPIRES')&.to_i || 15).minutes.from_now
+      )
       refresh_token = session.token
 
-      Success({ user:, session:, access_token:, refresh_token: })
+      Success({ user:, access_token:, refresh_token: })
     end
 
     private
@@ -22,7 +25,7 @@ module Users
     attr_reader :jwt_encoder
 
     def create_session(user)
-      user.sessions.create!(token: SecureRandom.hex(32), expired_at: 7.days.from_now,
+      user.sessions.create!(token: SecureRandom.hex(32), expired_at: (ENV.fetch('JWT_REFRESH_TOKEN_EXPIRES')&.to_i || 7).days.from_now,
                             user_agent: Current.user_agent, ip_address: Current.ip_address)
     end
   end

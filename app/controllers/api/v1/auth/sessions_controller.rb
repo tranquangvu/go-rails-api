@@ -5,27 +5,20 @@ module API
         skip_before_action :authenticate, only: %i[create refresh]
 
         def create
-          result = Users::Authenticate.call(
-            email: params[:email],
-            password: params[:password]
-          )
+          result = Auth::LoginUser.call(**login_params)
           case result
           when Success
-            data = result.value!
-            set_refresh_token(value: data[:refresh_token], expires: data[:session].expired_at)
-            render json: { user: data[:user], access_token: data[:access_token] }
+            response_session(result.value!)
           when Failure
             render_api_error(result.failure)
           end
         end
 
         def refresh
-          result = Auths::RefreshToken.call(token: cookies[:refresh_token])
+          result = Auth::RefreshSession.call(refresh_token)
           case result
           when Success
-            data = result.value!
-            set_refresh_token(value: data[:refresh_token], expires: data[:session].expired_at)
-            render json: { access_token: data[:access_token] }
+            response_session(result.value!)
           when Failure
             render_api_error(result.failure)
           end
@@ -36,6 +29,17 @@ module API
           cookies.delete(:refresh_token)
 
           head :no_content
+        end
+
+        private
+
+        def login_params
+          params.expect(:email, :password)
+        end
+
+        def response_session(data)
+          set_refresh_token(value: data[:refresh_token], expires: data[:session].expired_at)
+          render json: { user: data[:user], access_token: data[:access_token] }.compact
         end
       end
     end
